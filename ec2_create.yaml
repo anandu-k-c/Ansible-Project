@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  connection: local
+
+  tasks:
+    - name: create ec2 instances
+      amazon.aws.ec2_instance:
+        name: "{{ item.name }}"
+        key_name: "demo"
+        vpc_subnet_id: subnet-077902ac166f6676c
+        instance_type: t2.micro
+        security_groups: default
+        region: us-east-1
+        aws_access_key: "{{ ec2_access_key }}"  # Ensure these keys are defined correctly in your vault or variables
+        aws_secret_key: "{{ ec2_secret_key }}"
+        network:
+          assign_public_ip: true
+        image_id: "{{ item.image }}"
+      loop:
+        - { image: "ami-0866a3c8686eaeeba", name: "manage-node-1" }  # ubuntu ami-id
+        - { image: "ami-06b21ccaeff8cd686", name: "manage-node-2" }  # ubuntu ami-id
+        - { image: "ami-06b21ccaeff8cd686", name: "manage-node-3" }  # Amazon Linux ami-id

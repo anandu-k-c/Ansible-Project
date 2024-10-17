@@ -1,0 +1,8 @@
+# Ignore Ansible vault password file
+vault.pass
+
+# Ignore encrypted vault files, if they have specific extensions
+pass.yml
+
+# Ignore temporary files created by Ansible
+*.retry
